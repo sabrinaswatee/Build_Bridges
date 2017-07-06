@@ -16,7 +16,7 @@ helpers do
   end
 
   def current_user
-    User.find_by(id: session[:user_id])
+    @current_user = User.find_by(id: session[:user_id])
   end
 end
 
@@ -43,8 +43,8 @@ end
 
 get '/buildbridges/user' do
   @user = User.find(session[:user_id])
-  # @posts = Post.find_by(session[:user_id])
-  # @enquiries = Enquiry.find_by(session[:user_id])
+  @posts = Post.where(user_id: session[:user_id])
+  # @enquiries = Enquiry.find_by(user_id: session[:user_id])
   erb :profile
 end
 
@@ -67,11 +67,33 @@ post '/buildbridges/new_user' do
   redirect '/buildbridges/login'
 end
 
+post '/buildbridges/ad_post' do
+  post = Post.new
+  post.user_id = session[:user_id]
+  post.body = params[:body]
+  post.location = params[:location]
+  post.category = params[:category]
+  post.stamp = Time.now
+  post.save
+  redirect '/buildbridges/user'
+end
+
 get '/buildbridges/search' do
-  # @posts = Post.where(location: params[:location], category: params[:category], organization: params[:organization])
+  @user = User.find_by(name: params[:organization])
+  if @user
+    @posts = Post.where("location = ? OR category = ? OR user_id = ?", params[:location], params[:category], @user.id)
+  else
+    @posts = Post.where("location = ? OR category = ?", params[:location], params[:category])
+  end
   erb :search
 end
 
+get '/buildbridges/:id' do
+  @user = User.find(params[:id])
+  @posts = Post.where(user_id: params[:id])
+  erb :profile
+end
+
 get '/buildbridges/personality_search' do
-  "under contruction"
+  "under construction"
 end

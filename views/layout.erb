@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -6,25 +7,27 @@
   <link rel='stylesheet' href='/stylesheets/main.css'>
 </head>
 <body>
+  <header>
+    <%= session[:user_id] %>
 
-  <%= session[:user_id] %>
+    <% if logged_in? %>
+      Logged in as <%= current_user.email %>
 
-  <% if logged_in? %>
-    Logged in as <%= current_user.email %>
+      <form action="/session" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button>Logout</button>
+      </form>
+    <% else %>
+      <a href="/buildbridges/login">Login</a>
+      <a href="/buildbridges/new_user">Create Account</a>
+    <% end %>
 
-    <form action="/session" method="post">
-      <input type="hidden" name="_method" value="delete">
-      <button>Logout</button>
-    </form>
-  <% else %>
-    <a href="/buildbridges/login">Login</a>
-    <a href="/buildbridges/new_user">Create Account</a>
-  <% end %>
+    <!-- <% if flash[:error] %>
+      <%= flash[:error] %>
+    <% end %> -->
+  </header>
 
-  <!-- <% if flash[:error] %>
-    <%= flash[:error] %>
-  <% end %> -->
-
-  <%= yield %>
-
+  <main>
+    <%= yield %>
+  </main>
 </body>

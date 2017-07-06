@@ -1,1 +1,13 @@
-<h2>under construction</h2>
+
+<% @posts.each do |post| %>
+  <div>
+    <% @user = User.find_by(id: post[:user_id]) %>
+    <a href="/buildbridges/<%= @user.id %>"><%= @user.name %><br></a>
+    <%= post.body %><br>
+    <%= post.location %><br>
+    <%= post.category %><br>
+    <%= post.stamp %><br><hr>
+  </div>
+<% end %>
+
+<a href="/buildbridges">Home Page</a>

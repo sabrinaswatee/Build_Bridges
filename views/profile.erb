@@ -1,17 +1,54 @@
+
 <h2>Name of Oragnization: <%= @user.name %></h2>
 
 <h2>Address: <%= @user.address %></h2>
 
-"print posts here"
-"delete posts"
+<h3>Current openings</h3>
 
-<form action="" method="post">
-  <input type="hidden" name="dish_id" value="<%= @dish['id'] %>">
-  <label for="body">Post Opening</label>
-  <textarea id="body" name="body"></textarea>
-  <button>Post</button>
-</form>
+<% @posts.each do |post| %>
+  <%= post['body'] %><br>
+  <%= post['location'] %><br>
+  <%= post['category'] %><br>
+  <%= post['stamp'] %><br>
+  <% if logged_in? && @current_user.id == @user.id%>
+    <a href="#">Edit</a>
+    <button>Delete</button>
+  <% end %>
+  <hr>
+<% end %>
 
-"show enquiries"
+<% if logged_in? && @current_user.id == @user.id %>
+
+  <h3>Add more openings</h3>
+
+  <form action="/buildbridges/ad_post" method="post">
+    <label for="">Location</label>
+    <select name="location">
+      <option>Melbourne</option>
+      <option>Sydney</option>
+      <option>Canberra</option>
+      <option>Perth</option>
+    </select>
+    <br>
+
+    <label for="">Category</label>
+    <select name="category">
+      <option>Working with animals</option>
+      <option>Disability care</option>
+      <option>Education and training</option>
+      <option>Social support</option>
+    </select>
+    <br>
+
+    <label for="body">Post Opening</label>
+    <textarea id="body" name="body"></textarea>
+
+    <button>Post</button>
+  </form>
+
+  <h3>Enquiries</h3>
+<!-- "show enquiries" -->
+
+<% end %>
 
 <a href="/buildbridges">Home Page</a>
