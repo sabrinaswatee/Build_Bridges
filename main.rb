@@ -1,7 +1,7 @@
 
 require 'sinatra'
 # require 'sinatra/reloader'
-require 'sinatra/flash'
+# require 'sinatra/flash'
 # require 'pry'
 require 'pg'
 
