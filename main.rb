@@ -1,6 +1,6 @@
 
 require 'sinatra'
-require 'sinatra/reloader'
+# require 'sinatra/reloader'
 require 'sinatra/flash'
 require 'pry'
 require 'pg'
@@ -95,5 +95,11 @@ get '/buildbridges/:id' do
 end
 
 get '/buildbridges/personality_search' do
-  "under construction"
+  erb :personality_search
+end
+
+delete '/buildbridges/:id' do
+  post = Post.find(params[:id])
+  post.destroy
+  redirect '/buildbridges/:id'
 end

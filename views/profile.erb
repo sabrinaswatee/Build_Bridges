@@ -12,7 +12,10 @@
   <%= post['stamp'] %><br>
   <% if logged_in? && @current_user.id == @user.id%>
     <a href="#">Edit</a>
-    <button>Delete</button>
+    <form action="/buildbridges/<%= post['id'] %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button>Delete</button>
+    </form>
   <% end %>
   <hr>
 <% end %>
