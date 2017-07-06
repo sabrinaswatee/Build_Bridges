@@ -1,4 +1,6 @@
 
+<%= render "partial" %>
+
 <h2>Name of Oragnization: <%= @user.name %></h2>
 
 <h2>Address: <%= @user.address %></h2>
@@ -11,7 +13,7 @@
   <%= post['category'] %><br>
   <%= post['stamp'] %><br>
   <% if logged_in? && @current_user.id == @user.id%>
-    <a href="#">Edit</a>
+    <a href="/buildbridges/edit">Edit</a>
     <form action="/buildbridges/<%= post['id'] %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <button>Delete</button>
@@ -47,6 +49,7 @@
     <textarea id="body" name="body"></textarea>
 
     <button>Post</button>
+    <hr>
   </form>
 
   <h3>Enquiries</h3>
@@ -54,4 +57,4 @@
 
 <% end %>
 
-<a href="/buildbridges">Home Page</a>
+<!-- <a href="/buildbridges">Home Page</a> -->

@@ -88,18 +88,22 @@ get '/buildbridges/search' do
   erb :search
 end
 
+get '/buildbridges/personality_search' do
+  erb :personality_search
+end
+
 get '/buildbridges/:id' do
   @user = User.find(params[:id])
   @posts = Post.where(user_id: params[:id])
   erb :profile
 end
 
-get '/buildbridges/personality_search' do
-  erb :personality_search
-end
-
 delete '/buildbridges/:id' do
   post = Post.find(params[:id])
   post.destroy
   redirect '/buildbridges/:id'
+end
+
+get 'buildbridges/edit' do
+  erb :edit
 end
