@@ -1,0 +1,42 @@
+
+<h2>Name of Oragnization: <%= @user.name %></h2>
+
+<h2>Address: <%= @user.address %></h2>
+
+<h3>Current openings</h3>
+
+<% @posts.each do |post| %>
+  <%= post['body'] %><br>
+  <%= post['location'] %><br>
+  <%= post['category'] %><br>
+  <%= post['stamp'] %><br>
+  <% if logged_in? && current_user.id == @user.id%>
+    <form action="/buildbridges/<%= post['id'] %>" method="post">
+      <input type="hidden" name="_method" value="patch">
+      <%= erb :partial %>
+      <button>Edit</button>
+    </form>
+
+    <form action="/buildbridges/<%= post['id'] %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button>Delete</button>
+    </form>
+  <% end %>
+  <hr>
+<% end %>
+
+<% if logged_in? && current_user.id == @user.id %>
+
+  <h3>Add more openings</h3>
+
+  <form action="/buildbridges/ad_post" method="post">
+    <%= erb :partial %>
+
+    <button>Post</button>
+    <hr>
+  </form>
+
+  <h3>Enquiries</h3>
+<!-- "show enquiries" -->
+
+<% end %>

@@ -1,6 +1,4 @@
 
-<%= erb :partial %>
-
 <h2>Name of Oragnization: <%= @user.name %></h2>
 
 <h2>Address: <%= @user.address %></h2>
@@ -12,9 +10,9 @@
   <%= post['location'] %><br>
   <%= post['category'] %><br>
   <%= post['stamp'] %><br>
-  <% if logged_in? && @current_user.id == @user.id%>
-    <a href="/buildbridges/edit">Edit</a>
-    <form action="/buildbridges/<%= post['id'] %>" method="post">
+  <% if logged_in? && current_user.id == @user.id%>
+    <a href="/buildbridges/edit" class="button">Edit</a>
+    <form action="/buildbridges/post/<%= post['id'] %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <button>Delete</button>
     </form>
@@ -22,38 +20,38 @@
   <hr>
 <% end %>
 
-<% if logged_in? && @current_user.id == @user.id %>
+<% if logged_in? && current_user.id == @user.id %>
 
   <h3>Add more openings</h3>
 
-  <form action="/buildbridges/ad_post" method="post">
-    <label for="">Location</label>
-    <select name="location">
-      <option>Melbourne</option>
-      <option>Sydney</option>
-      <option>Canberra</option>
-      <option>Perth</option>
-    </select>
-    <br>
-
-    <label for="">Category</label>
-    <select name="category">
-      <option>Working with animals</option>
-      <option>Disability care</option>
-      <option>Education and training</option>
-      <option>Social support</option>
-    </select>
-    <br>
-
-    <label for="body">Post Opening</label>
-    <textarea id="body" name="body"></textarea>
+  <form action="/buildbridges/add_post" method="post">
+    <%= erb :partial %>
 
     <button>Post</button>
     <hr>
   </form>
 
   <h3>Enquiries</h3>
-<!-- "show enquiries" -->
+  <% if @enquiries %>
+    <% @enquiries.each do |enquiry| %>
+      <%= enquiry['body'] %><br>
+      <%= enquiry['stamp'] %>
+      <form action="/buildbridges/enquiry/<%= enquiry['id'] %>" method="post">
+        <input type="hidden" name="_method" value="delete">
+        <button>Resolved</button>
+      </form>
+      <hr>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <form action="/buildbridges/add_enquiry" method="post">
+    <input type="hidden" name="user_id" value="<%= @user['id'] %>">
+    <label for="enquirybody">Post your questions here</label>
+    <textarea id="enquirybody" name="body"></textarea>
+    <button>Enquire</button>
+    <hr>
+  </form>
 
 <% end %>
 

@@ -8,30 +8,32 @@
 </head>
 <body>
   <header>
-    <%= session[:user_id] %>
+    <%#= session[:user_id] %>
 
     <% if logged_in? %>
-      Logged in as <%= current_user.email %>
-
-      <form action="/session" method="post">
-        <input type="hidden" name="_method" value="delete">
-        <button>Logout</button>
-      </form>
-
-      <a href="/buildbridges/user">Profile</a>
+      <div>Logged in as <%= current_user.email %></div>
+      <div>
+        <form action="/session" method="post">
+          <input type="hidden" name="_method" value="delete">
+          <button>Logout</button>
+        </form>
+      </div>
+      <div><a href="/buildbridges/user" class="button">Profile</a></div>
 
     <% else %>
-      <a href="/buildbridges/login">Login</a>
-      <a href="/buildbridges/new_user">Create Account</a>
+      <a href="/buildbridges/login" class="button">Login</a>
+      <a href="/buildbridges/new_user" class="button">Create Account</a>
     <% end %>
-
-    <%# if flash[:error] %>
-      <%#= flash[:error] %>
-    <%# end %>
+    <% if flash[:error] %>
+      <%= flash[:error] %>
+    <% end %>
   </header>
 
   <main>
     <%= yield %>
-    <a href="/buildbridges">Home Page</a>
   </main>
+
+  <footer>
+    <a href="/buildbridges" class="button">Home Page</a>
+  </footer>
 </body>

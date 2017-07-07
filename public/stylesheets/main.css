@@ -1,0 +1,33 @@
+
+body {
+  background-image: url(http://readingandbeyond.org/volunteer/index_files/500_gold.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-size: 25px;
+}
+
+body > header {
+  text-align: right;
+}
+
+header > div {
+  display: inline-block;
+}
+
+button, .button {
+  width: 200px;
+  font-size: 20px;
+  padding: 5px;
+  margin: 10px;
+  box-shadow: 2px 2px black;
+  text-decoration-line: none;
+  text-decoration-color: none;
+  color: black;
+  background: grey;
+  border-radius: 10px;
+}
+
+select > option, input {
+  font-size: 20px;
+  width: 200px;
+}
